@@ -2,7 +2,7 @@
 
 [![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg)](https://www.webcomponents.org/element/telecomsante/tsante-dropdown)
 
-version : 0.1.0
+version : 0.1.1
 
 A simple dropdown menu
 
@@ -46,6 +46,11 @@ A simple dropdown menu
             min-width:90px;
             margin: 0;
         }
+
+        .container {
+            height: 250px;
+            margin: 20px
+        }
     </style>
     <next-code-block></next-code-block>
   </template>
@@ -53,7 +58,8 @@ A simple dropdown menu
 ```
 -->
 ```html
-<tsante-dropdown horizontal-align='center' opened>
+<div class="container">
+<tsante-dropdown horizontal-align='left' opened>
     <button>Trigger</button>
     <ul slot="dropdown-content">
         <li>Item 1</li>
@@ -62,6 +68,7 @@ A simple dropdown menu
         <li>Item 4</li>
     </ul>
 </tsante-dropdown>
+</div>
 ```
 
 The component is licensed under the [ISC License](LICENSE.md)
