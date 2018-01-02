@@ -1,0 +1,108 @@
+<html>
+
+<head>
+  <title>tsante-dots-selector test</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+  <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+  <script src="../../web-component-tester/browser.js"></script>
+
+  <link rel="import" href="../tsante-dropdown.html"> 
+</head>
+
+<body>
+  <test-fixture id="simple">
+    <template>
+      <tsante-dropdown>
+        <button>Menu</button>
+        <ul slot="dropdown-content">
+          <li>Item 1</li>
+          <li>Item 2</li>
+          <li>Item 3</li>
+          <li>Item 4</li>
+        </ul>
+      </tsante-dropdown>
+    </template>
+  </test-fixture>
+
+  <test-fixture id="opened">
+      <template>
+        <tsante-dropdown opened>
+          <button>Menu</button>
+          <ul slot="dropdown-content">
+            <li>Item 1</li>
+            <li>Item 2</li>
+            <li>Item 3</li>
+            <li>Item 4</li>
+          </ul>
+        </tsante-dropdown>
+      </template>
+    </test-fixture>
+
+  <script>
+    suite('<tsante-dropdown>', () => {
+      // Get the selector
+      let selector
+
+      test('instantiating the element works', () => {
+        selector = fixture('simple')
+        assert.isTrue(selector instanceof TsanteDropdown)
+        assert.isNull(selector.getAttribute('opened'))
+      })
+
+      test('on click the dropdown must be displayed', (done) => {
+        selector = fixture('simple')
+        flush(() => {
+          const rect = selector.$.dropdown.getBoundingClientRect()
+          assert.equal(rect.height, 0)
+          const evt = new MouseEvent('click', {
+            bubbles: true,
+            cancelable: true,
+            view: window,
+          })
+          selector.addEventListener('opened-changed', evt => {
+            const elt = evt.currentTarget
+            const dropdown = elt.$.dropdown
+            assert.isTrue(elt.opened)
+            // wait transition ended
+            dropdown.addEventListener('transitionend', (evt) => {
+              const rect = evt.currentTarget.getBoundingClientRect()
+              assert.isAbove(rect.height, 0)
+              console.log('transition ended')
+              done()
+            }, {once: true})
+          })
+          selector.querySelector('button').dispatchEvent(evt)
+        })
+      })
+
+      test('setting opened must display the dropdown', (done) => {
+        selector = fixture('simple')
+        debugger
+        assert.isUndefined(selector.$.dropdown.offsetHeight)
+        selector.opened = true
+        flush(() => {
+          assert.isTrue(selector.opened)
+          assert.isAbove(selector.$.dropdown.offsetHeight, 0)
+          done()
+        })
+      })
+
+      test('unsetting opened must hide the dropdown', (done) => {
+        selector = fixture('opened')
+        flush(() => {
+          assert.isAbove(selector.$.dropdown.offsetHeight, 0)
+          selector.opened = false
+          flush(() => {
+            assert.isFalse(selector.opened)
+            assert.equal(selector.$.dropdown.style.display, '')
+            done()
+          })
+        })
+      })
+    })
+  </script>
+
+</body>
+
+</html>

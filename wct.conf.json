@@ -1,0 +1,13 @@
+{
+  "plugins": {
+    "local": {
+      "browsers": [{
+        "browserName": "firefox"
+      },{
+        "browserName": "chrome"
+      },{
+        "browserName": "safari"
+      }]
+    }
+  }
+}

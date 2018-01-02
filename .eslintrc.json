@@ -1,0 +1,29 @@
+{
+  "extends": "standard",
+  "plugins": [
+    "html"
+  ],
+  "env": {
+    "browser": true,
+    "es6": true,
+    "mocha": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 8,
+    "sourceType": "script"
+  },
+  "globals": {
+    "Polymer": true,
+    "assert": true,
+    "flush": true,
+    "fixture": true
+  },
+  "rules": {
+    "comma-dangle": ["error", "always-multiline"],
+    "space-before-function-paren": ["error", {
+      "anonymous": "always",
+      "named": "never",
+      "asyncArrow": "always"
+    }]
+  }
+}
