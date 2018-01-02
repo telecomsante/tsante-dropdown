@@ -1,0 +1,100 @@
+<html>
+
+<head>
+  <title>tsante-tiler demo</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+  <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+
+  <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+  <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+  <link rel="import" href="../tsante-dropdown.html">
+  <link rel="import" href="../../paper-lipsum/paper-lipsum.html">
+</head>
+
+<body>
+  <div class="vertical-section-container centered">
+    <demo-snippet>
+      <template>
+        <style>
+          paper-lipsum {
+            padding: 10px 0px;
+            display: block;
+          }
+
+          tsante-dropdown {
+            font-family: Roboto, Arial, helvetica;
+          }
+
+          ul {
+            margin: 0;
+            padding: 0;
+            list-style-type: none;
+            width: 200px;
+          }
+
+          li {
+            height: 35px;
+            display: flex;
+            align-items: center;
+            padding: 0px 8px;
+          }
+
+          li:hover {
+            background: dimgray;
+            color: white;
+          }
+
+          .trigger {
+            border: 1px solid lightgray;
+            padding: 5px 8px;
+            outline: none;
+            min-width:90px;
+            margin: 0;
+          }
+
+        </style>
+        <paper-lipsum words=200></paper-lipsum>
+        <div style="display: flex; justify-content:space-between">
+          <tsante-dropdown horizontal-align='left' style="background: yellow; border-color: goldenrod">
+            <button class="trigger">Trigger</button>
+            <ul slot="dropdown-content" style="height: 300px;overflow: auto;">
+              <li>Item 1</li>
+              <li>Item 2</li>
+              <li>Item 3</li>
+              <li>Item 4</li>
+              <li>Item 1</li>
+              <li>Item 2</li>
+              <li>Item 3</li>
+              <li>Item 4</li>
+              <li>Item 1</li>
+              <li>Item 2</li>
+              <li>Item 3</li>
+              <li>Item 4</li>
+            </ul>
+          </tsante-dropdown>
+          <tsante-dropdown horizontal-align='center' vertical-align='above' opened>
+            <button class="trigger">Trigger</button>
+            <ul slot="dropdown-content">
+              <li>Item 1</li>
+              <li>Item 2</li>
+              <li>Item 3</li>
+              <li>Item 4</li>
+            </ul>
+          </tsante-dropdown>
+          <tsante-dropdown horizontal-align='right' style="background: dodgerblue; border-color:blue">
+            <button class="trigger">Trigger</button>
+            <ul slot="dropdown-content">
+              <li>Item 1</li>
+              <li>Item 2</li>
+              <li>Item 3</li>
+              <li>Item 4</li>
+            </ul>
+          </tsante-dropdown>
+        </div>
+      </template>
+    </demo-snippet>
+  </div>
+</body>
+
+</html>

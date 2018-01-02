@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>tsante-dots-selecteor tests suite</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="../../web-component-tester/browser.js"></script>
+    <style>
+    #subsuites {
+      width: 100%;
+    }
+    #mocha {
+      z-index:1;
+      left: calc(100% - 500px)
+    }
+    </style>
+  </head>
+  <body>
+  <script>
+      WCT.loadSuites([
+        'tsante-dropdown_test.html',
+      ])
+    </script>
+
+  </body>
+
