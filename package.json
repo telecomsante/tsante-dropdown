@@ -9,23 +9,21 @@
   "scripts": {
     "clean": "rm -rf bower_components node_modules",
     "postinstall": "polymer install",
-    "start": "polymer serve -H 0.0.0.0",
+    "start": "polymer serve",
     "test": "polymer test",
-    "doc": "polymer analyze | ./filterDoc.js > analysis.json"
+    "doc": "polymer analyze > analysis.json"
   },
   "keywords": [],
   "license": "ISC",
   "dependencies": {},
   "devDependencies": {
-    "eslint": "^4.14.0",
-    "eslint-config-standard": "^11.0.0-beta.0",
-    "eslint-plugin-html": "^4.0.1",
-    "eslint-plugin-import": "^2.8.0",
-    "eslint-plugin-node": "^5.2.1",
-    "eslint-plugin-promise": "^3.6.0",
-    "eslint-plugin-standard": "^3.0.1",
-    "jest": "^22.0.4",
-    "polymer-cli": "^1.5.7",
-    "puppeteer": "^0.13.0"
+    "eslint": "^4.19.1",
+    "eslint-config-standard": "^11.0.0",
+    "eslint-plugin-html": "^4.0.3",
+    "eslint-plugin-import": "^2.12.0",
+    "eslint-plugin-node": "^6.0.1",
+    "eslint-plugin-promise": "^3.8.0",
+    "eslint-plugin-standard": "^3.1.0",
+    "polymer-cli": "^1.7.2"
   }
 }
