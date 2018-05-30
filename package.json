@@ -9,6 +9,7 @@
     "tsante"
   ],
   "name": "@telecomsante/tsante-dropdown",
+  "main": "tsante-dropdown.js",
   "version": "2.0.0-pre.1",
   "author": {
     "name": "Fabrice Le Coz",
@@ -16,12 +17,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/telecomsante/tsante-dropdown.git"
+    "url": "git@github.com:telecomsante/tsante-dropdown.git"
   },
   "homepage": "https://github.com/telecomsante/tsante-dropdown",
   "scripts": {
-    "clean": "rm -rf bower_components node_modules",
-    "postinstall": "polymer install",
     "start": "polymer serve",
     "test": "polymer test",
     "lint": "npm run lint:javascript && npm run lint:polymer",
@@ -53,5 +52,7 @@
     "supports-color": "3.1.2",
     "type-detect": "1.0.0"
   },
-  "main": "tsante-dropdown.js"
+  "publishConfig":{
+    "registry":"https://registry.npmjs.org"
+  }
 }
