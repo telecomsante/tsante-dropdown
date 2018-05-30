@@ -6,7 +6,7 @@
 the component show a dropdown bellow or above the trigger, that can be what you want.
 The child element with the slot dropdown-content is used as the dropdown content.
 
-the background and border colors of the compoment is used to colorize the dropdown, 
+the background and border colors of the compoment is used to colorize the dropdown,
 but you can also use the following css variables :
 
 | Custom property                | Default   | Description
@@ -37,11 +37,11 @@ example :
   from HTML and may be out of place here. Review them and
   then delete this comment!
 */
-import { PolymerElement } from '@polymer/polymer/polymer-element.js';
+import { PolymerElement } from '@polymer/polymer/polymer-element.js'
 
-import { afterNextRender } from '@polymer/polymer/lib/utils/render-status.js';
-const $_documentContainer = document.createElement('template');
-$_documentContainer.setAttribute('style', 'display: none;');
+import { afterNextRender } from '@polymer/polymer/lib/utils/render-status.js'
+const $_documentContainer = document.createElement('template')
+$_documentContainer.setAttribute('style', 'display: none;')
 
 $_documentContainer.innerHTML = `<dom-module id="tsante-dropdown">
   <template strip-whitespace="">
@@ -139,9 +139,9 @@ $_documentContainer.innerHTML = `<dom-module id="tsante-dropdown">
   </template>
 
   
-</dom-module>`;
+</dom-module>`
 
-document.head.appendChild($_documentContainer.content);
+document.head.appendChild($_documentContainer.content)
 class TsanteDropdown extends PolymerElement {
   static get is() {
     return 'tsante-dropdown'
@@ -255,22 +255,24 @@ class TsanteDropdown extends PolymerElement {
     if (!this.opened) return
 
     let marginLeft = 0
+    const rect = this.$.trigger.getBoundingClientRect()
+
     switch (this.horizontalAlign) {
       case 'center':
         marginLeft = this.$.dropdown.offsetWidth / 2 - 11
         this.$.arrowup.style.marginLeft = `${marginLeft}px`
         this.$.arrowdown.style.marginLeft = `${marginLeft}px`
-        this.$.dropdown.style.marginLeft = `${(this.$.trigger.offsetWidth - this.$.dropdown.offsetWidth) / 2}px`
+        this.$.dropdown.style.marginLeft = `${(rect.width - this.$.dropdown.offsetWidth) / 2}px`
         break
       case 'right':
         marginLeft = this.$.dropdown.offsetWidth - 11 - this.$.trigger.offsetWidth / 2
         this.$.arrowup.style.marginLeft = `${marginLeft < 0 ? 10 : marginLeft}px`
         this.$.arrowdown.style.marginLeft = `${marginLeft < 0 ? 10 : marginLeft}px`
-        this.$.dropdown.style.marginLeft = `${this.$.trigger.offsetWidth - this.$.dropdown.offsetWidth}px`
+        this.$.dropdown.style.marginLeft = `${rect.width - this.$.dropdown.offsetWidth}px`
         break
       case 'left':
       default:
-        marginLeft = this.$.trigger.offsetWidth / 2 - 11
+        marginLeft = rect.width / 2 - 11
         if (marginLeft > this.$.dropdown.offsetWidth - 32) {
           marginLeft = this.$.dropdown.offsetWidth - 32
         }
