@@ -10,7 +10,7 @@
   ],
   "name": "@telecomsante/tsante-dropdown",
   "main": "tsante-dropdown.js",
-  "version": "2.0.0-pre.2",
+  "version": "2.0.0-pre.3",
   "author": {
     "name": "Fabrice Le Coz",
     "email": "fabrice.lecoz@telecomsante.com"
