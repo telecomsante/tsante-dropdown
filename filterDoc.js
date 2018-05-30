@@ -1,6 +1,4 @@
 #!/usr/bin/env node
-const fs = require('fs')
-
 let json = ''
 process.stdin.resume()
 process.stdin.setEncoding('utf8')

@@ -2,7 +2,7 @@
   "name": "tsante-dropdown",
   "description": "A dropdown component",
   "main": "tsante-dropdown.html",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "authors": [
     "Fabrice Le Coz <fabrice.lecoz@telecomsante.com>"
   ],
@@ -33,6 +33,6 @@
     "iron-component-page": "PolymerElements/iron-component-page#^3.0.1",
     "iron-demo-helpers": "PolymerElements/iron-demo-helpers#^2.0.0",
     "web-component-tester": "Polymer/web-component-tester#^6.0.0",
-    "webcomponentsjs": "webcomponents/webcomponentsjs#^1.0.0"
+    "webcomponentsjs": "webcomponents/webcomponentsjs#^1.1.0"
   }
 }

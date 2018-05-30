@@ -2,13 +2,13 @@
   "schema_version": "1.0.0",
   "elements": [
     {
-      "description": "`<tsante-dropdown>` is a dropdown component.\n\n![](hero.gif)\n\nthe component show a dropdown bellow or above the trigger, that can be what you want.\nThe child element with the slot dropdown-content is used as the dropdown content.\n\nthe background and border colors of the compoment is used to colorize the dropdown, \nbut you can also use the following css variable :\n\n| Custom property                | Default   | Description\n|--------------------------------|-----------|-----------------------------\n| `--tsante-dropdown-background` | white     | background of the dropdown\n| `--tsante-dropdown-border`     | lightgray | border color of the dropdown\n\nexample :\n\n```\n<tsante-dropdown>\n  <div>Trigger</div>\n  <ul slot=\"droptdown-content\">\n    <li>Item 1</li>\n    <li>Item 2</li>\n    <li>Item 3</li>\n    <li>Item 4</li>\n  </ul>\n</tsante-dropdown>\n```",
+      "description": "`<tsante-dropdown>` is a dropdown component.\n\n![](hero.gif)\n\nthe component show a dropdown bellow or above the trigger, that can be what you want.\nThe child element with the slot dropdown-content is used as the dropdown content.\n\nthe background and border colors of the compoment is used to colorize the dropdown, \nbut you can also use the following css variables :\n\n| Custom property                | Default   | Description\n|--------------------------------|-----------|-----------------------------\n| `--tsante-dropdown-background` | white     | background of the dropdown\n| `--tsante-dropdown-border`     | lightgray | border color of the dropdown\n\nexample :\n\n```\n<tsante-dropdown>\n  <div>Trigger</div>\n  <ul slot=\"droptdown-content\">\n    <li>Item 1</li>\n    <li>Item 2</li>\n    <li>Item 3</li>\n    <li>Item 4</li>\n  </ul>\n</tsante-dropdown>\n```",
       "summary": "",
       "path": "tsante-dropdown.html",
       "properties": [
         {
           "name": "opened",
-          "type": "boolean",
+          "type": "boolean | null | undefined",
           "description": "boolean flag indicating if the dropdown is opened",
           "privacy": "public",
           "sourceRange": {
@@ -24,14 +24,15 @@
           "metadata": {
             "polymer": {
               "notify": true,
-              "observer": "\"_openedChange\""
+              "observer": "\"_openedChange\"",
+              "attributeType": "Boolean"
             }
           },
           "defaultValue": "false"
         },
         {
           "name": "horizontalAlign",
-          "type": "string",
+          "type": "string | null | undefined",
           "description": "horizontal alignement\n\navailable value are : left, center, right",
           "privacy": "public",
           "sourceRange": {
@@ -46,14 +47,15 @@
           },
           "metadata": {
             "polymer": {
-              "observer": "\"_calcPosition\""
+              "observer": "\"_calcPosition\"",
+              "attributeType": "String"
             }
           },
           "defaultValue": "\"left\""
         },
         {
           "name": "verticalAlign",
-          "type": "string",
+          "type": "string | null | undefined",
           "description": "vertical alignement\n\navailable value are : above, bellow",
           "privacy": "public",
           "sourceRange": {
@@ -68,10 +70,33 @@
           },
           "metadata": {
             "polymer": {
-              "observer": "\"_calcPosition\""
+              "observer": "\"_calcPosition\"",
+              "attributeType": "String"
             }
           },
           "defaultValue": "\"bellow\""
+        },
+        {
+          "name": "_firstrender",
+          "type": "boolean | null | undefined",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 173,
+              "column": 10
+            },
+            "end": {
+              "line": 176,
+              "column": 11
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "attributeType": "Boolean"
+            }
+          },
+          "defaultValue": "false"
         }
       ],
       "methods": [
@@ -81,16 +106,19 @@
           "privacy": "private",
           "sourceRange": {
             "start": {
-              "line": 178,
+              "line": 183,
               "column": 6
             },
             "end": {
-              "line": 186,
+              "line": 191,
               "column": 7
             }
           },
           "metadata": {},
-          "params": []
+          "params": [],
+          "return": {
+            "type": "void"
+          }
         },
         {
           "name": "_openedChange",
@@ -98,11 +126,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 191,
+              "line": 196,
               "column": 6
             },
             "end": {
-              "line": 194,
+              "line": 199,
               "column": 7
             }
           },
@@ -111,7 +139,10 @@
             {
               "name": "newValue"
             }
-          ]
+          ],
+          "return": {
+            "type": "void"
+          }
         },
         {
           "name": "_open",
@@ -119,16 +150,19 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 199,
+              "line": 204,
               "column": 6
             },
             "end": {
-              "line": 205,
+              "line": 210,
               "column": 7
             }
           },
           "metadata": {},
-          "params": []
+          "params": [],
+          "return": {
+            "type": "void"
+          }
         },
         {
           "name": "_close",
@@ -136,16 +170,19 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 210,
+              "line": 215,
               "column": 6
             },
             "end": {
-              "line": 213,
+              "line": 218,
               "column": 7
             }
           },
           "metadata": {},
-          "params": []
+          "params": [],
+          "return": {
+            "type": "void"
+          }
         },
         {
           "name": "toggle",
@@ -153,11 +190,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 218,
+              "line": 223,
               "column": 6
             },
             "end": {
-              "line": 224,
+              "line": 229,
               "column": 7
             }
           },
@@ -174,16 +211,19 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 229,
+              "line": 234,
               "column": 6
             },
             "end": {
-              "line": 232,
+              "line": 237,
               "column": 7
             }
           },
           "metadata": {},
-          "params": []
+          "params": [],
+          "return": {
+            "type": "void"
+          }
         },
         {
           "name": "_calcPosition",
@@ -191,16 +231,19 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 237,
+              "line": 242,
               "column": 6
             },
             "end": {
-              "line": 281,
+              "line": 286,
               "column": 7
             }
           },
           "metadata": {},
-          "params": []
+          "params": [],
+          "return": {
+            "type": "void"
+          }
         }
       ],
       "staticMethods": [],
@@ -217,7 +260,7 @@
           "column": 4
         },
         "end": {
-          "line": 282,
+          "line": 287,
           "column": 5
         }
       },
@@ -239,7 +282,7 @@
             }
           },
           "metadata": {},
-          "type": "boolean"
+          "type": "boolean | null | undefined"
         },
         {
           "name": "horizontal-align",
@@ -255,7 +298,7 @@
             }
           },
           "metadata": {},
-          "type": "string"
+          "type": "string | null | undefined"
         },
         {
           "name": "vertical-align",
@@ -271,7 +314,7 @@
             }
           },
           "metadata": {},
-          "type": "string"
+          "type": "string | null | undefined"
         }
       ],
       "events": [
@@ -291,7 +334,6 @@
           "description": "",
           "name": "",
           "range": {
-            "file": "tsante-dropdown.html",
             "start": {
               "line": 120,
               "column": 6
@@ -306,7 +348,6 @@
           "description": "",
           "name": "dropdown-content",
           "range": {
-            "file": "tsante-dropdown.html",
             "start": {
               "line": 125,
               "column": 8
