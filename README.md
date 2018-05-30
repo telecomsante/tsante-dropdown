@@ -8,7 +8,7 @@ version : 0.1.2
 
 A simple dropdown menu
 
-![](hero.gif)
+![][hero]
 
 ## Quick example
 
@@ -85,3 +85,5 @@ npm start
 the documentation should then be available on : 
 
 http://127.0.0.1:8081/components/tsante-dropdown/
+
+[hero]: https://raw.githubusercontent.com/telecomsante/tsante-dropdown/HEAD/hero.gif
