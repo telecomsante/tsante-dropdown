@@ -2,7 +2,9 @@
 
 [![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg)](https://www.webcomponents.org/element/telecomsante/tsante-dropdown)
 
-version : 0.1.1
+![](https://img.shields.io/badge/polymer-2.x-blue.svg)
+
+version : 0.1.2
 
 A simple dropdown menu
 
@@ -82,4 +84,4 @@ npm start
 
 the documentation should then be available on : 
 
-http://0.0.0.0:8081/components/tsante-dropdown/
+http://127.0.0.1:8081/components/tsante-dropdown/

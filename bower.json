@@ -2,7 +2,7 @@
   "name": "tsante-dropdown",
   "description": "A dropdown component",
   "main": "tsante-dropdown.html",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "authors": [
     "Fabrice Le Coz <fabrice.lecoz@telecomsante.com>"
   ],
