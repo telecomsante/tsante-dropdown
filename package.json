@@ -1,11 +1,24 @@
 {
-  "name": "tsante-dropdown",
-  "version": "0.1.2",
   "description": "A dropdown component",
+  "keywords": [
+    "web-components",
+    "polymer",
+    "menu",
+    "dropdown",
+    "Telecomsante",
+    "tsante"
+  ],
+  "name": "@telecomsante/tsante-dropdown",
+  "version": "2.0.0-pre.1",
   "author": {
     "name": "Fabrice Le Coz",
     "email": "fabrice.lecoz@telecomsante.com"
   },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/telecomsante/tsante-dropdown.git"
+  },
+  "homepage": "https://github.com/telecomsante/tsante-dropdown",
   "scripts": {
     "clean": "rm -rf bower_components node_modules",
     "postinstall": "polymer install",
@@ -16,9 +29,10 @@
     "lint:javascript": "eslint . --ext js,html --ignore-path .gitignore",
     "doc": "polymer analyze -i tsante-dropdown.html | ./filterDoc.js > analysis.json"
   },
-  "keywords": [],
   "license": "ISC",
-  "dependencies": {},
+  "dependencies": {
+    "@polymer/polymer": "^3.0.2"
+  },
   "devDependencies": {
     "eslint": "^4.19.1",
     "eslint-config-standard": "^11.0.0",
@@ -27,6 +41,17 @@
     "eslint-plugin-node": "^6.0.1",
     "eslint-plugin-promise": "^3.8.0",
     "eslint-plugin-standard": "^3.1.0",
-    "polymer-cli": "^1.7.2"
-  }
+    "polymer-cli": "^1.7.2",
+    "@polymer/iron-component-page": "^3.0.0-pre.19",
+    "@polymer/iron-demo-helpers": "^3.0.0-pre.19",
+    "wct-browser-legacy": "^1.0.1",
+    "@webcomponents/webcomponentsjs": "^2.0.0"
+  },
+  "resolutions": {
+    "inherits": "2.0.3",
+    "samsam": "1.1.3",
+    "supports-color": "3.1.2",
+    "type-detect": "1.0.0"
+  },
+  "main": "tsante-dropdown.js"
 }

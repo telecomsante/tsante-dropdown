@@ -1,0 +1,301 @@
+/**
+`<tsante-dropdown>` is a dropdown component.
+
+![](hero.gif)
+
+the component show a dropdown bellow or above the trigger, that can be what you want.
+The child element with the slot dropdown-content is used as the dropdown content.
+
+the background and border colors of the compoment is used to colorize the dropdown, 
+but you can also use the following css variables :
+
+| Custom property                | Default   | Description
+|--------------------------------|-----------|-----------------------------
+| `--tsante-dropdown-background` | white     | background of the dropdown
+| `--tsante-dropdown-border`     | lightgray | border color of the dropdown
+
+example :
+
+```
+<tsante-dropdown>
+  <div>Trigger</div>
+  <ul slot="droptdown-content">
+    <li>Item 1</li>
+    <li>Item 2</li>
+    <li>Item 3</li>
+    <li>Item 4</li>
+  </ul>
+</tsante-dropdown>
+```
+
+@customElement
+@polymer
+@demo demo/index.html
+*/
+/*
+  FIXME(polymer-modulizer): the above comments were extracted
+  from HTML and may be out of place here. Review them and
+  then delete this comment!
+*/
+import { PolymerElement } from '../@polymer/polymer/polymer-element.js';
+
+import { afterNextRender } from '../@polymer/polymer/lib/utils/render-status.js';
+const $_documentContainer = document.createElement('template');
+$_documentContainer.setAttribute('style', 'display: none;');
+
+$_documentContainer.innerHTML = `<dom-module id="tsante-dropdown">
+  <template strip-whitespace="">
+    <style>
+       :host {
+        display: block;
+        font: inherit;
+        --tsante-dropdown-background: white;
+        --tsante-dropdown-border: lightgray;
+      }
+
+      .arrow-up {
+        width: 0;
+        height: 0;
+        border-left: 11px solid transparent;
+        border-right: 11px solid transparent;
+        border-bottom: 11px solid var(--tsante-dropdown-border);
+        position: relative;
+        margin-left: 10px;
+      }
+
+      .arrow-up::after {
+        content: '';
+        width: 0;
+        height: 0;
+        border-left: 10px solid transparent;
+        border-right: 10px solid transparent;
+        border-bottom: 10px solid var(--tsante-dropdown-background);
+        position: absolute;
+        left: -10px;
+        top: 2px;
+      }
+
+      .arrow-down {
+        width: 0;
+        height: 0;
+        border-left: 11px solid transparent;
+        border-right: 11px solid transparent;
+        border-top: 11px solid var(--tsante-dropdown-border);
+        position: relative;
+        margin-left: 10px;
+      }
+
+      .arrow-down::after {
+        content: '';
+        width: 0;
+        height: 0;
+        border-left: 10px solid transparent;
+        border-right: 10px solid transparent;
+        border-top: 10px solid var(--tsante-dropdown-background);
+        position: absolute;
+        left: -10px;
+        bottom: 2px;
+      }
+
+      .content {
+        border: 1px solid var(--tsante-dropdown-border);
+        background: var(--tsante-dropdown-background);
+        min-width: 42px;
+        box-sizing: border-box;
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6)
+      }
+
+      .dropdown {
+        position: absolute;
+        z-index: 10000;
+        opacity: 0;
+        transform: scaleY(0);
+        transform-origin: 0px 0px;
+        transition: transform 0.2s ease-in, opacity 0.2s ease-out;
+      }
+
+      .open {
+        opacity: 1;
+        transform: scaleY(1);
+        transition: transform 0.2s ease-out, opacity 0.2s ease-in;
+      }
+
+      .hidden {
+        display:none;
+      }
+    </style>
+
+    <span on-click="toggle" id="trigger">
+      <slot></slot>
+    </span>
+    <div id="dropdown" class="dropdown">
+      <div id="arrowup" class="arrow-up"></div>
+      <div class="content">
+        <slot name="dropdown-content"></slot>
+      </div>
+      <div id="arrowdown" class="arrow-down hidden"></div>
+    </div>
+
+  </template>
+
+  
+</dom-module>`;
+
+document.head.appendChild($_documentContainer.content);
+class TsanteDropdown extends PolymerElement {
+  static get is() {
+    return 'tsante-dropdown'
+  }
+
+  static get properties() {
+    return {
+      /**
+      * boolean flag indicating if the dropdown is opened
+      */
+      opened: {
+        type: Boolean,
+        value: false,
+        notify: true,
+        reflectToAttribute: true,
+        observer: '_openedChange',
+      },
+
+      /**
+      * horizontal alignement
+      *
+      * available value are : left, center, right
+      */
+      horizontalAlign: {
+        type: String,
+        value: 'left',
+        observer: '_calcPosition',
+      },
+
+      /**
+      * vertical alignement
+      *
+      * available value are : above, bellow
+      */
+      verticalAlign: {
+        type: String,
+        value: 'bellow',
+        observer: '_calcPosition',
+      },
+
+      _firstrender: {
+        type: Boolean,
+        value: false,
+      },
+    }
+  }
+
+  /**
+  * @private
+  */
+  connectedCallback() {
+    super.connectedCallback()
+    this.close = this.close.bind(this)
+    afterNextRender(this, () => {
+      // if this.opened, postpone the render until the component is ready
+      this._firstrender = true
+      if (this.opened) this._open(this.opened)
+    })
+  }
+
+  /**
+  * called when the `opened` attribute change
+  */
+  _openedChange(newValue) {
+    if (!this._firstrender) return
+    newValue ? this._open() : this._close()
+  }
+
+  /**
+  * open the dropdown
+  */
+  _open() {
+    this._calcPosition()
+    this.style.setProperty('--tsante-dropdown-background', this.style.backgroundColor || 'white')
+    this.style.setProperty('--tsante-dropdown-border', this.style.borderColor || 'lightgray')
+    this.$.dropdown.classList.add('open')
+    document.addEventListener('click', this.close, {passive: true})
+  }
+
+  /**
+  * hide the dropdown
+  */
+  _close() {
+    this.$.dropdown.classList.remove('open')
+    document.removeEventListener('click', this.close)
+  }
+
+  /**
+  * toggle the dropdown
+  */
+  toggle(evt) {
+    if (this.opened) return this.close()
+    // defers the opening, to allow to close other dropdowns
+    setTimeout(() => {
+      this.opened = true
+    }, 0)
+  }
+
+  /**
+  * close the dropdown
+  */
+  close() {
+    if (!this.opened) return
+    this.opened = false
+  }
+
+  /**
+  * calculate the position of the dropdown
+  */
+  _calcPosition() {
+    if (!this.opened) return
+
+    let marginLeft = 0
+    switch (this.horizontalAlign) {
+      case 'center':
+        marginLeft = this.$.dropdown.offsetWidth / 2 - 11
+        this.$.arrowup.style.marginLeft = `${marginLeft}px`
+        this.$.arrowdown.style.marginLeft = `${marginLeft}px`
+        this.$.dropdown.style.marginLeft = `${(this.$.trigger.offsetWidth - this.$.dropdown.offsetWidth) / 2}px`
+        break
+      case 'right':
+        marginLeft = this.$.dropdown.offsetWidth - 11 - this.$.trigger.offsetWidth / 2
+        this.$.arrowup.style.marginLeft = `${marginLeft < 0 ? 10 : marginLeft}px`
+        this.$.arrowdown.style.marginLeft = `${marginLeft < 0 ? 10 : marginLeft}px`
+        this.$.dropdown.style.marginLeft = `${this.$.trigger.offsetWidth - this.$.dropdown.offsetWidth}px`
+        break
+      case 'left':
+      default:
+        marginLeft = this.$.trigger.offsetWidth / 2 - 11
+        if (marginLeft > this.$.dropdown.offsetWidth - 32) {
+          marginLeft = this.$.dropdown.offsetWidth - 32
+        }
+        this.$.arrowup.style.marginLeft = `${marginLeft}px`
+        this.$.arrowdown.style.marginLeft = `${marginLeft}px`
+        this.$.dropdown.style.marginLeft = '0px'
+        break
+    }
+
+    if (this.verticalAlign === 'above') {
+      this.$.dropdown.style.transformOrigin = `0px ${this.$.dropdown.offsetHeight + this.offsetHeight}px`
+      this.$.dropdown.style.marginTop = `${-this.$.dropdown.offsetHeight - this.offsetHeight}px`
+      this.$.arrowdown.classList.remove('hidden')
+      if (!this.$.arrowup.classList.contains('hidden')) {
+        this.$.arrowup.classList.add('hidden')
+      }
+    } else {
+      this.$.dropdown.style.transformOrigin = `0px 0px`
+      this.$.dropdown.style.marginTop = `0px`
+      this.$.arrowup.classList.remove('hidden')
+      if (!this.$.arrowdown.classList.contains('hidden')) {
+        this.$.arrowdown.classList.add('hidden')
+      }
+    }
+  }
+}
+
+customElements.define(TsanteDropdown.is, TsanteDropdown)
