@@ -40,65 +40,62 @@
     </test-fixture>
 
   <script>
-    suite('<tsante-dropdown>', () => {
-      // Get the selector
-      let selector
-
-      test('instantiating the element works', () => {
-        selector = fixture('simple')
+    describe('<tsante-dropdown>', () => {
+      it('instantiating the element works', () => {
+        const selector = fixture('simple')
         assert.isTrue(selector instanceof TsanteDropdown)
         assert.isNull(selector.getAttribute('opened'))
       })
 
-      test('on click the dropdown must be displayed', (done) => {
-        selector = fixture('simple')
-        flush(() => {
-          const rect = selector.$.dropdown.getBoundingClientRect()
-          assert.equal(rect.height, 0)
-          const evt = new MouseEvent('click', {
-            bubbles: true,
-            cancelable: true,
-            view: window,
-          })
-          selector.addEventListener('opened-changed', evt => {
-            const elt = evt.currentTarget
-            const dropdown = elt.$.dropdown
-            assert.isTrue(elt.opened)
-            // wait transition ended
-            dropdown.addEventListener('transitionend', (evt) => {
-              const rect = evt.currentTarget.getBoundingClientRect()
-              assert.isAbove(rect.height, 0)
-              console.log('transition ended')
-              done()
-            }, {once: true})
-          })
-          selector.querySelector('button').dispatchEvent(evt)
+      it('on click the dropdown must be displayed', (done) => {
+        const selector = fixture('simple')
+        const rect = selector.$.dropdown.getBoundingClientRect()
+        assert.equal(rect.height, 0)
+        const evt = new MouseEvent('click', {
+          bubbles: true,
+          cancelable: true,
+          view: window,
         })
+
+        selector.addEventListener('opened-changed', evt => {
+          const elt = evt.currentTarget
+          const dropdown = elt.$.dropdown
+          assert.isTrue(elt.opened)
+          // wait transition ended
+          dropdown.addEventListener('transitionend', (evt) => {
+            const rect = evt.currentTarget.getBoundingClientRect()
+            assert.equal(rect.height, selector.$.dropdown.offsetHeight)
+            done()
+          }, {once: true})
+        })
+        selector.querySelector('button').dispatchEvent(evt)
       })
 
-      test('setting opened must display the dropdown', (done) => {
-        selector = fixture('simple')
-        debugger
-        assert.isUndefined(selector.$.dropdown.offsetHeight)
-        selector.opened = true
-        flush(() => {
+      it('setting opened must display the dropdown', (done) => {
+        const selector = fixture('simple')
+        const dropdown = selector.$.dropdown
+        assert.equal(selector.$.dropdown.getBoundingClientRect().height, 0)
+        dropdown.addEventListener('transitionend', (evt) => {
           assert.isTrue(selector.opened)
-          assert.isAbove(selector.$.dropdown.offsetHeight, 0)
+          assert.equal(selector.$.dropdown.offsetHeight, Math.round(selector.$.dropdown.getBoundingClientRect().height))
           done()
-        })
+        }, {once: true})
+        selector.opened = true
       })
 
-      test('unsetting opened must hide the dropdown', (done) => {
-        selector = fixture('opened')
-        flush(() => {
-          assert.isAbove(selector.$.dropdown.offsetHeight, 0)
+      it('unsetting opened must hide the dropdown', (done) => {
+        const selector = fixture('opened')
+        const dropdown = selector.$.dropdown
+        dropdown.addEventListener('transitionend', (evt) => {
+          assert.equal(selector.$.dropdown.offsetHeight, Math.round(selector.$.dropdown.getBoundingClientRect().height))
           selector.opened = false
-          flush(() => {
+          setTimeout(() => {
             assert.isFalse(selector.opened)
             assert.equal(selector.$.dropdown.style.display, '')
+            assert.equal(selector.$.dropdown.getBoundingClientRect().height, 0)
             done()
-          })
-        })
+          }, 210)
+        }, {once: true})
       })
     })
   </script>
