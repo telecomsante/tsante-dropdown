@@ -11,7 +11,10 @@
     "postinstall": "polymer install",
     "start": "polymer serve",
     "test": "polymer test",
-    "doc": "polymer analyze > analysis.json"
+    "lint": "npm run lint:javascript && npm run lint:polymer",
+    "lint:polymer": "polymer lint",
+    "lint:javascript": "eslint . --ext js,html --ignore-path .gitignore",
+    "doc": "polymer analyze -i tsante-dropdown.html | ./filterDoc.js > analysis.json"
   },
   "keywords": [],
   "license": "ISC",
