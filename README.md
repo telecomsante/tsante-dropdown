@@ -1,14 +1,20 @@
 # \<tsante-dropdown\>
 
 [![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg)](https://www.webcomponents.org/element/telecomsante/tsante-dropdown)
-
-![](https://img.shields.io/badge/polymer-2.x-blue.svg)
+![](https://img.shields.io/badge/polymer-3.x-blue.svg)
+![](https://img.shields.io/badge/npm%20package-2.0.0--pre.3-green.svg)
 
 version : 0.1.2
 
 A simple dropdown menu
 
 ![][hero]
+
+## install
+
+```
+npm i @teleconsante/tsante-dropdown@2.0.0-pre.3
+```
 
 ## Quick example
 
